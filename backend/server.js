@@ -6,7 +6,7 @@ const cors = require('cors')
 const app = express()
 
 require('dotenv').config()
-
+const paymentRoutes = require("./routes/payment");
 mongoose
     .connect(process.env.MONGODB_URL)
     .then((r) => {
@@ -27,7 +27,7 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions)) // Use this after the variable declaration
-
+app.use("/payment", paymentRoutes);
 readdirSync('./routes').map((r) => app.use('/api', require(`./routes/${r}`)))
 
 const port = process.env.PORT || 8090
